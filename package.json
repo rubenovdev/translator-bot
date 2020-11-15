@@ -10,9 +10,9 @@
   "author": "Alexander Rubenov",
   "license": "ISC",
   "dependencies": {
-    "fs": "^0.0.1-security",
+    "fs": "0.0.1-security",
     "node-fetch": "2.6.1",
-    "node-jose": "^2.0.0",
+    "node-jose": "2.0.0",
     "node-telegram-bot-api": "0.50.0"
   }
 }
