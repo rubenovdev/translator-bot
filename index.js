@@ -5,7 +5,7 @@ const TOKEN = '1457856506:AAFAz3MNayQiPc7h0Xe8ZpTYBrdnyOU4vyw'
 const bot = new TelegramBot(TOKEN, { polling: true })
 
 const IAM_TOKEN =
-  't1.9euelZqPnJ3JjZqek8qYz5CZlJGTnu3rnpWaiszLy46cnYuNlZLMy5GSjZHl8_dDcEAC-u8nFXpE_t3z9wMfPgL67ycVekT-.saztk7UmBaIiCV6P9qj1iJ9jsL05_9MeVqP4ULwmwlB41Lf2AVA3xWPcYLpjDPSDdtqROFdliWTaoMLHKRZIDw'
+  't1.9euelZqLmJmLksyPlZaOzsnIyMrMmO3rnpWaiszLy46cnYuNlZLMy5GSjZHl8_ctXDsC-u9HVkFy_d3z920KOQL670dWQXL9.BUMhF_96mypda2WsdVEZ7zs6Gw4gk2cxZ0CXfUMPSx-x66-lLLM21mlFsrP_E0k79osxTWlwcyq5f0PGxqDNBg'
 const FOLDER_ID = 'b1gm1cj4shlranfpo7i1'
 const URL = 'https://translate.api.cloud.yandex.net/translate/v2/translate'
 const RU = 'ru'
