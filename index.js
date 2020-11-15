@@ -3,12 +3,9 @@ const fetch = require('node-fetch')
 
 const TOKEN = '1457856506:AAFAz3MNayQiPc7h0Xe8ZpTYBrdnyOU4vyw'
 const bot = new TelegramBot(TOKEN, { polling: true })
+
 const PROD = 'production'
 const TEST = 'development'
-
-let iamToken
-// поменять на PROD
-let mode = TEST
 const FOLDER_ID = 'b1gm1cj4shlranfpo7i1'
 const TRANSLATE_URL =
   'https://translate.api.cloud.yandex.net/translate/v2/translate'
@@ -16,6 +13,9 @@ const IAM_TOKENS_URL = 'https://iam.api.cloud.yandex.net/iam/v1/tokens'
 const YANDEX_OAUTH_TOKEN = 'AgAAAAAs6XH4AATuwbCv3VlS2U8eilL83bCCoP8'
 const DEFAULT_CHAT_ID = -1001438237715
 const RU = 'ru'
+
+let iamToken
+let mode = PROD
 
 function updateIamToken() {
   if (mode === TEST) {
@@ -45,7 +45,7 @@ function updateIamToken() {
     .catch((error) => {
       bot.sendMessage(
         DEFAULT_CHAT_ID,
-        `Ошибка при получении iam-токена: ${error.name}. Описание: ${error.message}`
+        `- ошибка при получении iam-токена: ${error.name}\n- описание: ${error.message}`
       )
     })
 }
@@ -91,7 +91,7 @@ bot.on('message', (msg) => {
             chatId,
             `- ответ от сервера: ${JSON.stringify(
               responseData
-            )}\niamToken: ${iamToken}`
+            )}\n- iamToken: ${iamToken}`
           )
         }
 
@@ -102,7 +102,7 @@ bot.on('message', (msg) => {
       .catch((error) => {
         bot.sendMessage(
           chatId,
-          `Ошибка при переводе сообщения: ${error.name}. Описание: ${error.message}`
+          `- ошибка при переводе сообщения: ${error.name}\n- описание: ${error.message}`
         )
       })
   }
@@ -113,6 +113,7 @@ bot.onText(/test/, (msg) => {
 
   if (msg.from.id !== 301723507) {
     bot.sendMessage(chatId, '- нет доступа')
+    return
   }
 
   mode = TEST
@@ -124,6 +125,7 @@ bot.onText(/prod/, (msg) => {
 
   if (msg.from.id !== 301723507) {
     bot.sendMessage(chatId, '- нет доступа')
+    return
   }
 
   mode = PROD
