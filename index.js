@@ -7,7 +7,8 @@ const PROD = 'production'
 const TEST = 'development'
 
 let iamToken
-let mode = PROD
+// поменять на PROD
+let mode = TEST
 const FOLDER_ID = 'b1gm1cj4shlranfpo7i1'
 const TRANSLATE_URL =
   'https://translate.api.cloud.yandex.net/translate/v2/translate'
@@ -88,7 +89,9 @@ bot.on('message', (msg) => {
         if (mode === TEST) {
           bot.sendMessage(
             chatId,
-            `- ответ от сервера: ${JSON.stringify(responseData)}`
+            `- ответ от сервера: ${JSON.stringify(
+              responseData
+            )}\niamToken: ${iamToken}`
           )
         }
 
