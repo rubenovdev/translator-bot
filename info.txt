@@ -1,8 +1,6 @@
-// chatId = -1001438237715
-// egerId = 237089463 || wowyoulooksosad
-// myId = 301723507 || rubenovdev
-
-
+chatId = -1001438237715
+egerId = 237089463 || wowyoulooksosad
+myId = 301723507 || rubenovdev
 
 // открытый ключ
 // -----BEGIN PUBLIC KEY-----
@@ -44,4 +42,3 @@
 // TGacfdhFVO4e0MtrttpJ+BkfUVTHqEcYD0fB9OAR4zfiqi8HLI3+OEDC1g/2YgAU
 // q3S2mHhX0QG/WmmGUgKV7B9u
 // -----END PRIVATE KEY-----
-
