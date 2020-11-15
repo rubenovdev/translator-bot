@@ -65,9 +65,11 @@ bot.on('message', (msg) => {
       body: JSON.stringify(data),
     })
       .then((response) => response.json())
-      .then((responseData) =>
-        bot.sendMessage(chatId, responseData.translations[0].text)
-      )
+      .then((responseData) => {
+        if (responseData.translations.length > 0) {
+          bot.sendMessage(chatId, responseData.translations[0].text)
+        }
+      })
       .catch((error) =>
         bot.sendMessage(
           chatId,
