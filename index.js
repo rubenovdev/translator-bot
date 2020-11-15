@@ -66,7 +66,11 @@ bot.on('message', (msg) => {
     })
       .then((response) => response.json())
       .then((responseData) => {
-        if (responseData.translations.length > 0) {
+        if (
+          responseData &&
+          responseData.translations &&
+          responseData.translations.length > 0
+        ) {
           bot.sendMessage(chatId, responseData.translations[0].text)
         }
       })
