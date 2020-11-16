@@ -142,7 +142,7 @@ bot.onText(/prod/, (msg) => {
   bot.sendMessage(chatId, '- включен режим production')
 })
 
-bot.onText(/check mode/, (msg) => {
+bot.onText(/check_mode/, (msg) => {
   const chatId = msg.chat.id
 
   if (msg.from.id !== 301723507) {
