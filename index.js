@@ -22,8 +22,7 @@ const DEFAULT_CHAT_ID = -1001438237715
 const RU = 'ru'
 
 let iamToken
-// поменять на PROD
-let mode = TEST
+let mode = PROD
 
 function updateIamToken() {
   if (mode === TEST) {
@@ -150,7 +149,7 @@ bot.onText(/check_mode/, (msg) => {
     return
   }
 
-  bot.sendMessage(chatId, `- mode: ${mode}`)
+  bot.sendMessage(chatId, `- режим: ${mode}`)
 })
 
 bot.onText(/погода/, (msg) => {
