@@ -19,6 +19,9 @@ const WEATHER_URL = `https://api.weather.yandex.ru/v2/forecast?lat=${WeatherCoor
 const WEATHER_API_KEY = '9491ed85-00bf-4ee2-a321-90e48c32acb2'
 const YANDEX_OAUTH_TOKEN = 'AgAAAAAs6XH4AATuwbCv3VlS2U8eilL83bCCoP8'
 const DEFAULT_CHAT_ID = -1001438237715
+const ALEXANDER_ID = 301723507
+const EGER_ID = 237089463
+const NOVAK_ID = 890777097
 const RU = 'ru'
 
 let iamToken
@@ -66,7 +69,7 @@ setInterval(() => updateIamToken(), 360000)
 bot.on('message', (msg) => {
   const fromId = msg.from.id
 
-  if (fromId === 237089463 || fromId === 301723507) {
+  if (fromId === EGER_ID) {
     const { text } = msg
 
     if (
@@ -177,6 +180,11 @@ bot.onText(/погода/, (msg) => {
       const locality = geoObject.locality.name
       const { temp, feels_like: feelsLike } = fact
 
+      if (msg.from.id === NOVAK_ID) {
+        bot.sendMessage(chatId, `до мая пизда холодно, а вообще ${temp}°`)
+        return
+      }
+
       bot.sendMessage(
         chatId,
         `${locality} ${temp}°\nощущается как ${feelsLike}°`
@@ -188,4 +196,66 @@ bot.onText(/погода/, (msg) => {
         `- ошибка при получении погоды: ${error.name}\n- описание: ${error.message}`
       )
     })
+})
+
+let gameInit = false
+
+const players = ['@wowyoulooksosad', '@novak_55', '@rubenovdev']
+
+bot.onText(/пидр дня/, (msg) => {
+  if (gameInit) {
+    return
+  }
+
+  gameInit = true
+
+  const randomInt = Math.floor(Math.random() * 3)
+  const winner = players[randomInt]
+  const chatId = msg.chat.id
+  const interval = 1000
+
+  bot.sendMessage(chatId, 'система поиска пидораса активирована...')
+
+  for (let i = 1; i < 4; i++) {
+    setTimeout(() => bot.sendMessage(chatId, 'пип'), interval * i)
+  }
+
+  setTimeout(() => bot.sendMessage(chatId, 'пииииип'), interval * 4)
+
+  setTimeout(() => bot.sendMessage(chatId, 'пидорас найден'), interval * 5)
+
+  setTimeout(() => bot.sendMessage(chatId, winner), interval * 6)
+
+  setTimeout(() => {
+    gameInit = false
+  }, interval * 7)
+})
+
+bot.onText(/красавчик дня/, (msg) => {
+  if (gameInit) {
+    return
+  }
+
+  gameInit = true
+
+  const randomInt = Math.floor(Math.random() * 3)
+  const winner = players[randomInt]
+  const chatId = msg.chat.id
+  const interval = 1000
+
+  bot.sendMessage(chatId, 'система поиска красавчика активирована...')
+
+  for (let i = 1; i < 4; i++) {
+    setTimeout(() => bot.sendMessage(chatId, 'пип'), interval * i)
+  }
+
+  setTimeout(() => bot.sendMessage(chatId, 'пииииип'), interval * 4)
+
+  setTimeout(() => bot.sendMessage(chatId, 'красавчик найден'), interval * 5)
+
+  setTimeout(() => bot.sendMessage(chatId, winner), interval * 6)
+
+  setTimeout(() => {
+    gameInit = false
+  }, interval * 7)
 })

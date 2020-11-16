@@ -1,6 +1,24 @@
 chatId = -1001438237715
 egerId = 237089463 || wowyoulooksosad
+novak = 890777097 || novak_55
 myId = 301723507 || rubenovdev
+
+{
+  message_id: 65003,
+  from: { id: 375571776, is_bot: false, first_name: 'Nikita_Gilev' },
+  chat: { id: -1001438237715, title: 'питер', type: 'supergroup' },
+  date: 1605527560,
+  text: 'Прагщтещумьдо'
+}
+
+{"message_id":65016,"from":{"id":301723507,"is_bot":false,"first_name":"Александ
+р","last_name":"Рубенов","username":"rubenovdev"},"chat":{"id":-1001438237715,"t
+itle":"питер","type":"supergroup"},"date":1605527765,"text":"Никита","entities":
+[{"offset":0,"length":6,"type":"text_mention","user":{"id":375571776,"is_bot":fa
+lse,"first_name":"Nikita_Gilev"}}]}
+
+https://t.me/c/1438237715/65016
+
 
 // открытый ключ
 // -----BEGIN PUBLIC KEY-----
