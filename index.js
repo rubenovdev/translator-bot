@@ -4,12 +4,19 @@ const fetch = require('node-fetch')
 const TOKEN = '1457856506:AAFAz3MNayQiPc7h0Xe8ZpTYBrdnyOU4vyw'
 const bot = new TelegramBot(TOKEN, { polling: true })
 
+const WeatherCoordinates = {
+  LAT: 55.913842,
+  LON: 37.828292,
+}
+
 const PROD = 'production'
 const TEST = 'development'
 const FOLDER_ID = 'b1gm1cj4shlranfpo7i1'
 const TRANSLATE_URL =
   'https://translate.api.cloud.yandex.net/translate/v2/translate'
 const IAM_TOKENS_URL = 'https://iam.api.cloud.yandex.net/iam/v1/tokens'
+const WEATHER_URL = `https://api.weather.yandex.ru/v2/forecast?lat=${WeatherCoordinates.LAT}&lon=${WeatherCoordinates.LON}&lang=ru_RU&limit=1&hours=false&extra=false`
+const WEATHER_API_KEY = '9491ed85-00bf-4ee2-a321-90e48c32acb2'
 const YANDEX_OAUTH_TOKEN = 'AgAAAAAs6XH4AATuwbCv3VlS2U8eilL83bCCoP8'
 const DEFAULT_CHAT_ID = -1001438237715
 const RU = 'ru'
@@ -130,4 +137,38 @@ bot.onText(/prod/, (msg) => {
 
   mode = PROD
   bot.sendMessage(chatId, '- включен режим production')
+})
+
+bot.onText(/check mode/, (msg) => {
+  const chatId = msg.chat.id
+
+  if (msg.from.id !== 301723507) {
+    bot.sendMessage(chatId, '- нет доступа')
+    return
+  }
+
+  bot.sendMessage(chatId, `- mode: ${mode}`)
+})
+
+bot.onText(/погода/, (msg) => {
+  const chatId = msg.chat.id
+
+  fetch(WEATHER_URL, {
+    method: 'GET',
+    headers: {
+      'X-Yandex-API-Key': WEATHER_API_KEY,
+    },
+  })
+    .then((response) => response.json())
+    .then((responseData) => {
+      const { geo_object: geoObject, fact } = responseData
+
+      const locality = geoObject.locality.name
+      const { temp, feels_like: feelsLike } = fact
+
+      bot.sendMessage(
+        chatId,
+        `${locality} ${temp}°\nощущается как ${feelsLike}°`
+      )
+    })
 })
