@@ -22,7 +22,8 @@ const DEFAULT_CHAT_ID = -1001438237715
 const RU = 'ru'
 
 let iamToken
-let mode = PROD
+// поменять на PROD
+let mode = TEST
 
 function updateIamToken() {
   if (mode === TEST) {
@@ -43,7 +44,9 @@ function updateIamToken() {
       if (mode === TEST) {
         bot.sendMessage(
           DEFAULT_CHAT_ID,
-          `- ответ от сервера: ${JSON.stringify(responseData)}`
+          `- получение iam-токена, ответ от сервера: ${JSON.stringify(
+            responseData
+          )}`
         )
       }
 
@@ -96,9 +99,9 @@ bot.on('message', (msg) => {
         if (mode === TEST) {
           bot.sendMessage(
             chatId,
-            `- ответ от сервера: ${JSON.stringify(
+            `- перевод сообщения, ответ от сервера: ${JSON.stringify(
               responseData
-            )}\n- iamToken: ${iamToken}`
+            )}\n\n- iamToken: ${iamToken}`
           )
         }
 
@@ -161,6 +164,15 @@ bot.onText(/погода/, (msg) => {
   })
     .then((response) => response.json())
     .then((responseData) => {
+      if (mode === TEST) {
+        bot.sendMessage(
+          DEFAULT_CHAT_ID,
+          `- получение погоды, ответ от сервера: ${JSON.stringify(
+            responseData
+          )}`
+        )
+      }
+
       const { geo_object: geoObject, fact } = responseData
 
       const locality = geoObject.locality.name
@@ -169,6 +181,12 @@ bot.onText(/погода/, (msg) => {
       bot.sendMessage(
         chatId,
         `${locality} ${temp}°\nощущается как ${feelsLike}°`
+      )
+    })
+    .catch((error) => {
+      bot.sendMessage(
+        chatId,
+        `- ошибка при получении погоды: ${error.name}\n- описание: ${error.message}`
       )
     })
 })
