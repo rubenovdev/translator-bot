@@ -69,8 +69,12 @@ setInterval(() => updateIamToken(), 360000)
 bot.on('message', (msg) => {
   const fromId = msg.from.id
   const { text } = msg
+  const lowerCaseText = text.toLowerCase()
 
-  if (text.toLowerCase().includes('погода') && text.length < 8) {
+  if (
+    (lowerCaseText.includes('погода') || lowerCaseText.includes('weather')) &&
+    text.length < 9
+  ) {
     sendWeather(msg)
     return
   }
@@ -79,7 +83,7 @@ bot.on('message', (msg) => {
     if (
       text.length < 4 ||
       text.split(' ').length < 2 ||
-      !text.toLowerCase().match(/[a-z]/)
+      !lowerCaseText.match(/[a-z]/)
     ) {
       return
     }
