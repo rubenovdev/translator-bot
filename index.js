@@ -71,7 +71,7 @@ bot.on('message', (msg) => {
   const { text } = msg
 
   if (text.toLowerCase().includes('погода') && text.length < 8) {
-    sendWeather()
+    sendWeather(msg)
     return
   }
 
@@ -159,7 +159,7 @@ bot.onText(/check_mode/, (msg) => {
   bot.sendMessage(chatId, `- режим: ${mode}`)
 })
 
-function sendWeather() {
+function sendWeather(msg) {
   fetch(WEATHER_URL, {
     method: 'GET',
     headers: {
