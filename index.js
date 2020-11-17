@@ -68,10 +68,14 @@ setInterval(() => updateIamToken(), 360000)
 
 bot.on('message', (msg) => {
   const fromId = msg.from.id
+  const { text } = msg
+
+  if (text.toLowerCase().includes('погода') && text.length < 8) {
+    sendWeather()
+    return
+  }
 
   if (fromId === EGER_ID) {
-    const { text } = msg
-
     if (
       text.length < 4 ||
       text.split(' ').length < 2 ||
@@ -155,9 +159,7 @@ bot.onText(/check_mode/, (msg) => {
   bot.sendMessage(chatId, `- режим: ${mode}`)
 })
 
-bot.onText(/погода/, (msg) => {
-  const chatId = msg.chat.id
-
+function sendWeather() {
   fetch(WEATHER_URL, {
     method: 'GET',
     headers: {
@@ -181,22 +183,25 @@ bot.onText(/погода/, (msg) => {
       const { temp, feels_like: feelsLike } = fact
 
       if (msg.from.id === NOVAK_ID) {
-        bot.sendMessage(chatId, `до мая пизда холодно, а вообще ${temp}°`)
+        bot.sendMessage(
+          DEFAULT_CHAT_ID,
+          `до мая пизда холодно, а вообще ${temp}°`
+        )
         return
       }
 
       bot.sendMessage(
-        chatId,
+        DEFAULT_CHAT_ID,
         `${locality} ${temp}°\nощущается как ${feelsLike}°`
       )
     })
     .catch((error) => {
       bot.sendMessage(
-        chatId,
+        DEFAULT_CHAT_ID,
         `- ошибка при получении погоды: ${error.name}\n- описание: ${error.message}`
       )
     })
-})
+}
 
 let gameInit = false
 
